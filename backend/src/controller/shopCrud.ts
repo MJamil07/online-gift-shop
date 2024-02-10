@@ -14,19 +14,19 @@ class ShopCrud<T> {
               this.Model = model
        }
 
-       private async isExistUserAndProduct(userId : number , giftId : number)   {
+       private async isExistUserAndProduct(userId : string , giftId : string)   {
               const user = await User.findOne({_id : userId})
               const gift = await Gift.findOne({_id : giftId})
               return user && gift 
        }
        
-       private async isQuantityLessThanGift(quantity : number , giftId : number) : Promise<boolean> {
+       private async isQuantityLessThanGift(quantity : number , giftId : string) : Promise<boolean> {
               const gift = await Gift.findOne({_id : giftId})
               return gift ? gift.quantity >= quantity : false
        }
 
        public async create(request: Request, response: Response) {
-              
+
               if (this.Model.modelName ===  ShoppingCard.modelName || this.Model.modelName === Purchase.modelName) {
                      
                      const isExist = await this.isExistUserAndProduct(request.body.userId , request.body.giftId)
@@ -100,7 +100,7 @@ class ShopCrud<T> {
                             return response.status(400).json({ error: 'User ID is required' });
                      }
               
-                     const documents = await this.Model.find({ userId });
+                     const documents = await this.Model.find({ userId }).populate('giftId');
                      
                      if (documents.length === 0) {
                             return response.status(404).json({ message: 'No documents found for the specified user ID' });

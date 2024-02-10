@@ -7,7 +7,7 @@ const router = Router()
 const purchase = new Purchase()
 
 router.post('/create' , purchase.createOrder)
-router.patch('/cancel_order/:id' , purchase.createOrder)
+router.patch('/cancel_order/:id' , purchase.cancelOrder)
 router.get('/read/:id' , purchase.readOrders)
 router.delete('/remove/:id' , purchase.removeOrders)
 

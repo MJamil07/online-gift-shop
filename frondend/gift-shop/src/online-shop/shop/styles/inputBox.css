@@ -1,0 +1,15 @@
+.input-box-container {
+       display: flex;
+       justify-content: center;
+       margin-top: 20px;
+}
+
+.input-box {
+       padding: 10px 15px;
+       font-size: 16px;
+       border: 2px solid #ccc;
+       border-radius: 20px;
+       outline: none;
+       width: 80%;
+       max-width: 300px;
+}

@@ -7,7 +7,6 @@ export interface IGift extends Document {
        categories: string;
        rating: number;
        description: string;
-       message: string;
        quantity: number;
 }
 
@@ -33,10 +32,6 @@ const GiftSchema = new Schema<IGift>({
               required: true
        },
        description: {
-              type: String,
-       
-       },
-       message: {
               type: String,
        
        },
