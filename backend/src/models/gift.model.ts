@@ -25,7 +25,7 @@ const GiftSchema = new Schema<IGift>({
        categories: {
               type: String,
               required: true,
-              enum : ['Books' , 'Flowers' , 'Cloth' , 'Toys' , 'Electronics']
+              enum : ['Book' , 'Flower' , 'Cloth' , 'Toy' , 'Electronic']
        },
        rating: {
               type: Number,

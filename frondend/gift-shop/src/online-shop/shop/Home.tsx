@@ -26,12 +26,14 @@ export type ProductType = {
        message?: string;
        quantity: number;
 }
+export type QueryType = { name? : string , categorie? : string }
+
 
 const Home = () => {
-       const  categories = [Book, Toy, Cloth, Electronic, Flower];
+       const  categories = [{Book} , { Flower} , {Cloth} , {Toy} , {Electronic}];
+       console.log(categories);
+       
        const [products , setProducts] = useState<ProductType[]>()
-       const [search , setSearch] = useState<string>()
-       const [categorie , setCategorie] = useState<string>()
 
        React.useEffect(() => {
               async function fetchData() {
@@ -43,19 +45,37 @@ const Home = () => {
               }
               
               fetchData();
-       }, [search , categorie])
+       }, [])
+
+       const searchProductAndCategorie = async ( query : QueryType ) => {
+              let searchEndpoint = '/gift/search/?'
+              if (Object.hasOwn(query , 'name')) {
+                     searchEndpoint += `name=${query.name}`
+              }
+              if (Object.hasOwn(query , 'categorie')) {
+                     searchEndpoint += `categorie=${query.categorie}`
+              }      
+              try {
+                     const response = await axios.get(`${URL}${searchEndpoint}`).then((data) => {setProducts(data.data)} )
+              } catch (error) {
+                     console.error('Error fetching data:', error);
+              }
+              
+       }
        
 
        return (
               <div className="container">
                      <Navbar />
                      <div className="content-container">
-                            <InputBox />
+                            <InputBox searchProduct = {searchProductAndCategorie}/>
                             <h2 style={{textAlign : 'center'}} className="category-heading mt-5">Categories</h2>
                             <div  className="category-container">
                                    <MDBRow style={{marginLeft : '13%'}} className='row-cols-1 row-cols-md-5 g-2'>
                                           {categories.map((category, index) => (
-                                                 <CategoriesCard key={index} src={category} />
+                                                 <button onClick={() => searchProductAndCategorie( {categorie : Object.keys(category)[0]} ) } className='btn'>
+                                                        <CategoriesCard  key={index} src={Object.values(category)[0]} />
+                                                 </button>
                                           ))}
                                    </MDBRow>
                             </div>
