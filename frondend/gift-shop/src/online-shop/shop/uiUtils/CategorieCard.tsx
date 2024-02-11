@@ -4,7 +4,7 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCol } from 'mdb-rea
 
 const CategoriesCard = ({ src } : { src : string }) => (
               <MDBCol>
-                     <MDBCard className='h-100'>
+                     <MDBCard className='h-100 w-100'>
                             <MDBCardImage
                                    src = {src}
                                    alt='...'
@@ -12,7 +12,6 @@ const CategoriesCard = ({ src } : { src : string }) => (
                             />
                             <MDBCardBody>
                                    <MDBCardText>
-                                   
                                    </MDBCardText>
                             </MDBCardBody>
                      </MDBCard>

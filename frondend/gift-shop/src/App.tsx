@@ -13,6 +13,7 @@ import SignUp from './online-shop/auth/SignUp';
 // Shop
 import Home from './online-shop/shop/Home';
 import Order from './online-shop/shop/Order';
+import Shopcard from './online-shop/shop/Shopcard';
 
 
 function App() : JSX.Element {
@@ -36,6 +37,8 @@ function App() : JSX.Element {
               <Route path="/login" element={<Login />} />
               <Route path='/signup' element= {<SignUp/>} />
               <Route path='/order' element= {<Order/>} />
+              <Route path='/shopcard' element= {<Shopcard/>} />
+
 
 
             </Routes>

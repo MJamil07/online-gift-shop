@@ -47,9 +47,6 @@ export default function Product({product} : {product : ProductType} ) {
                   paymentOption,
                   message : giftMessage
           }
-
-          console.log(newOrder);
-
           try {
               const response = await axios.post(`${URL}/purchase/create` , newOrder)
                                 .then(() => {
@@ -76,6 +73,19 @@ export default function Product({product} : {product : ProductType} ) {
         const selectPaymentOption = (e : any) => {
           console.log(e.target.value);
           setPaymentOption(e.target.value)
+        }
+
+        const addShopcard = async () => {
+            try {
+              const userId = localStorage.getItem("userId")
+              if (!userId)
+                  return
+
+              const response = await axios.post(`${URL}/card/create` , {userId , giftId : product._id , quantity : 1 , totalPrice : product.price}).then(() => {api.success({message : 'Shopcard Added'})})
+            }
+            catch(error) {
+              api.error({message : 'Shopcard not added'})
+            }   
         }
        
        return (
@@ -142,7 +152,7 @@ export default function Product({product} : {product : ProductType} ) {
                               <button onClick={showModal} className='btn btn-primary' >
                                 Purchase
                               </button>
-                              <button   className="mt-2 btn btn-outline-primary">
+                              <button onClick={addShopcard}  className="mt-2 btn btn-outline-primary">
                                 Add to Shopping Card
                               </button>
                             </div>

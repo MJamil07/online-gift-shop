@@ -71,10 +71,10 @@ const Home = () => {
                             <InputBox searchProduct = {searchProductAndCategorie}/>
                             <h2 style={{textAlign : 'center'}} className="category-heading mt-5">Categories</h2>
                             <div  className="category-container">
-                                   <MDBRow style={{marginLeft : '13%'}} className='row-cols-1 row-cols-md-5 g-2'>
+                                   <MDBRow style={{marginLeft : '13%'}} className='row-cols-6 g-2'>
                                           {categories.map((category, index) => (
-                                                 <button onClick={() => searchProductAndCategorie( {categorie : Object.keys(category)[0]} ) } className='btn'>
-                                                        <CategoriesCard  key={index} src={Object.values(category)[0]} />
+                                                 <button key={index} onClick={() => searchProductAndCategorie( {categorie : Object.keys(category)[0]} ) } className='btn'>
+                                                        <CategoriesCard src={Object.values(category)[0]} />
                                                  </button>
                                           ))}
                                    </MDBRow>

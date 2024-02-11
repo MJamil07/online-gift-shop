@@ -1,8 +1,8 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document , Types} from 'mongoose';
 
 export interface IShoppingCard extends Document {
-       giftId: number;
-       userId: number;
+       giftId: String;
+       userId: String;
        quantity: number;
        totalPrice: number;
 }
@@ -10,12 +10,14 @@ export interface IShoppingCard extends Document {
 const ShoppingCardSchema = new Schema<IShoppingCard>({
 
        giftId: {
-              type: Number,
-              required: true
+              type: String,
+              required: true,
+              ref : 'Gift'
        },
        userId: {
-              type: Number,
-              required: true
+              type: String,
+              required: true,
+              ref : 'User'
        },
        quantity: {
               type: Number,
