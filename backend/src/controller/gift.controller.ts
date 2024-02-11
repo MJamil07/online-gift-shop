@@ -57,7 +57,41 @@ export default class GiftController{
               }
        }
        
-       search(request : Request , response : Response) {}
+       async search(request : Request , response : Response) {
+
+              try {
+                     const { name , categorie } = request.query;
+                     console.log(name);
+                     
+
+                     const query : any = {};
+
+                     if (name) {
+                            query.name = { $regex: new RegExp(name as string , 'i') };
+                     }
+
+                     if (categorie) {
+                            query.categories = { $regex: new RegExp(categorie as string , 'i')};
+                     }
+
+                     console.log(query);
+                     
+
+                     const gifts: IGift[] = await Gift.find(query);
+
+                     if (gifts.length === 0) {
+                       return response.status(404).json({ message: 'Gifts are not found' });
+                     }
+                 
+                     return response.status(200).json(gifts);
+
+              }
+
+              catch (error) {
+                     console.error('error' , error)
+                     response.status(500).json({error : 'Internal server error'})
+              }
+       }
        
 }
 
