@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import axios from 'axios';
 import URL from '../utils/url';
 import ShopcardProduct from './uiUtils/ShopcardProduct';
+import isLogin from '../utils/func';
 
 export type GiftType = {
        _id: string;
@@ -27,6 +28,8 @@ export type ShoppingCardType = {
 
 
 export default function Shopcard() {
+
+       isLogin()
        const [favouriteProducts , setFavouriteProducts] = React.useState<ShoppingCardType[]>()
        React.useEffect(() => {
               async function fetchData() {

@@ -8,7 +8,7 @@ export  interface IPurchase {
        price : number ,
        paymentOption : string ,
        purchaseDate : Date
-       isCancel : boolean
+       orderTrack : string
        message : string | null
 }
 const PurchaseSchema = new Schema<IPurchase>({
@@ -24,7 +24,7 @@ const PurchaseSchema = new Schema<IPurchase>({
        },
        message : {type : String},
        purchaseDate: { type: Date, default: Date.now },
-       isCancel: { type: Boolean, default: false },
+       orderTrack: { type: String, default: 'Order Confirm' , enum : ['Order Confirm' , 'Shipped' , 'Delivered' , 'Cancel'] },
 })
 
 export default model<IPurchase>('Purchase' , PurchaseSchema)

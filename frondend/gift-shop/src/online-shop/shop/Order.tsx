@@ -4,6 +4,7 @@ import axios from 'axios'
 import URL from '../utils/url'
 import { MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import OrderProduct from './uiUtils/OrderProduct'
+import isLogin from '../utils/func'
 
 export type GiftType = {
        _id: string;
@@ -24,7 +25,7 @@ export type PurchaseType = {
        quantity: number;
        price: number;
        paymentOption: 'CREDIT' | 'DEBIT' | 'CASH_ON';
-       isCancel: boolean;
+       orderTrack: string;
        message: string;
        purchaseDate: Date;
        __v: number;
@@ -33,7 +34,11 @@ export type PurchaseType = {
 
 export default function Order() {
 
+       isLogin()
+
        const [orders , setOrders] = React.useState<PurchaseType[]>()
+       const [refresh , setRefresh] = React.useState<boolean>(false)
+
        React.useEffect(() => {
               async function fetchData() {
                      try {
@@ -51,7 +56,7 @@ export default function Order() {
               }
               
               fetchData();
-       }, [])
+       }, [refresh])
 
        return (
               <div className='order-container container'>
@@ -63,7 +68,7 @@ export default function Order() {
                             <MDBRow>
                                    {
                                           orders && orders.map((order)=> (
-                                                 <OrderProduct key={order._id} order={order} />
+                                                 <OrderProduct setReferesh = {setRefresh} refresh = {refresh} key={order._id} order={order} />
                                           ))
                                    }
                             </MDBRow>

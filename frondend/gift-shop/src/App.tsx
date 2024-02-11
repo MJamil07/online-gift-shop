@@ -20,7 +20,6 @@ function App() : JSX.Element {
 
     const isUserLoggedIn = () : boolean => {
         const userId = localStorage.getItem("userId")
-        console.log(localStorage.getItem("userId"));
         return userId != undefined
     }
 

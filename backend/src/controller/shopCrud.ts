@@ -73,9 +73,9 @@ class ShopCrud<T> {
 
        public async delete(request: Request, response: Response) {
               try {
-                     const userId = request.body?.userId;
+                     const userId = request.headers.authorization;
                      const modelId = request.params?.id;
-              
+                     
                      if (!userId || !modelId) {
                             return response.status(400).json({ error: 'User ID and model ID are required' });
                      }

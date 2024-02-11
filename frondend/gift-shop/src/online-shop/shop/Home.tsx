@@ -30,9 +30,7 @@ export type QueryType = { name? : string , categorie? : string }
 
 
 const Home = () => {
-       const  categories = [{Book} , { Flower} , {Cloth} , {Toy} , {Electronic}];
-       console.log(categories);
-       
+       const  categories = [{Book} , { Flower} , {Cloth} , {Toy} , {Electronic}]; 
        const [products , setProducts] = useState<ProductType[]>()
 
        React.useEffect(() => {
@@ -69,7 +67,7 @@ const Home = () => {
                      <Navbar />
                      <div className="content-container">
                             <InputBox searchProduct = {searchProductAndCategorie}/>
-                            <h2 style={{textAlign : 'center'}} className="category-heading mt-5">Categories</h2>
+                            <h2 style={{textAlign : 'center'}} className="category-heading mt-5">Occasion</h2>
                             <div  className="category-container">
                                    <MDBRow style={{marginLeft : '13%'}} className='row-cols-6 g-2'>
                                           {categories.map((category, index) => (

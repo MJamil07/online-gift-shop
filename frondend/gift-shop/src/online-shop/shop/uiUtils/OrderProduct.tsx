@@ -1,59 +1,86 @@
-import { MDBCol, MDBCard, MDBRipple, MDBCardImage, MDBCardBody } from 'mdb-react-ui-kit'
-import React from 'react'
+import { MDBCol, MDBCard, MDBCardImage, MDBCardBody,  MDBCardFooter, MDBTypography } from 'mdb-react-ui-kit'
 import { PurchaseType } from '../Order'
+import Gift from '../../../images/categorie/gift.png'
+import '../styles/orderProduct.css'
+import axios from 'axios'
+import URL from '../../utils/url'
+import React from 'react'
 
-export default function OrderProduct({order} : {order : PurchaseType}) {
-       console.log(order);
-       
+export default function OrderProduct({ order , refresh , setReferesh }: { order: PurchaseType , refresh : boolean , setReferesh : React.Dispatch<React.SetStateAction<boolean>>}) {
+
+       const cancelOrder = async () => {
+              try {
+                  const userId = localStorage.getItem('userId')
+                  if (!userId)
+                      return
+
+                  const response = await axios.patch(`${URL}/purchase/cancel_order/${order._id}` , {userId , orderTrack : 'Cancel'})
+                  setReferesh(!refresh)
+              }
+              catch (error) {
+                console.error(error)
+              }
+       }
+
+       const removeOrder = async () => {
+              try {
+                     const userId = localStorage.getItem('userId')
+                     if (!userId)
+                         return
+                     const response = await axios.delete(`${URL}/purchase/remove/${order._id}` , {headers: { 'Authorization': userId}})
+                     setReferesh(!refresh)
+                 }
+                 catch (error) {
+                   console.error(error)
+                 }
+            };
+            
+
        return (
               <>
-                     <MDBCol md="12" lg="4" className="mb-4">
-                            <MDBCard>
-                                   <MDBRipple
-                                          rippleColor="light"
-                                          rippleTag="div"
-                                          className="bg-image rounded hover-zoom"
-                                   >
-                                          <MDBCardImage
-                                                 src= {''}
-                                                 fluid
-                                                 className="w-100"
-                                          />
-                                          <a href="#!">
-                                                 <div className="mask">
-                                                        <div className="d-flex justify-content-start align-items-end h-100">
-                                                               <h5>
-                                                                      <span className="badge bg-primary ms-2"> Q : {order.quantity} </span>
-                                                               </h5>
-                                                               <h5>
-                                                                      <span className="badge bg-success ms-2"> {order.paymentOption} </span>
-                                                               </h5>
-                                                               
-                                                        </div>
+                     <MDBCol className='mt-3' md="10" lg="8" xl="6">
+                            <MDBCard
+                                   className="card-stepper"
+                                   style={{ borderRadius: "16px" }}
+                            >
+                                   <MDBCardBody className="p-4">
+                                          <div className="d-flex flex-row mb-4 pb-2">
+                                                 <div className="flex-fill">
+                                                        <MDBTypography tag="h5" className="bold">
+                                                               {order.giftId.name}
+                                                        </MDBTypography>
+                                                        <p className="text-muted"> Qt: {order.quantity}</p>
+                                                        <MDBTypography tag="h4" className="mb-3">
+                                                               $ {order.price}
+                                                               <span className="small text-muted"> via ( {order.giftId.categories} ) </span> {" "}
+                                                        </MDBTypography>
+                                                        <p className="text-muted">
+                                                               Tracking Status on:{" "}
+                                                               <span className="text-success">{order.orderTrack} </span>
+                                                               <br />
+                                                               Gift Message on:{" "}
+                                                               <span className="text-success">{order.message}</span>
+                                                        </p>
                                                  </div>
-                                                 <div className="hover-overlay">
-                                                        <div
-                                                               className="mask"
-                                                               style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}>
-                                                        </div>
+                                                 <div>
+                                                        <MDBCardImage
+                                                               fluid
+                                                               className="align-self-center"
+                                                               src={order.giftId.image ? `http://127.0.0.1:8002/${order.giftId.image}`.replace('src' , '') : Gift}
+                                                               width="250"
+                                                        />
                                                  </div>
-                                          </a>
-                                   </MDBRipple>
-                                   <MDBCardBody>
-                                          <a href="#!" className="text-reset">
-                                                 <h5 className="card-title mb-3"> {order.giftId.name} </h5>
-                                                 <h5 className="card-title mb-3"> {order.isCancel} </h5>
-
-                                          </a>
-                                          <a href="#!" className="text-reset">
-                                                 <p> {order.giftId.categories} </p>
-                                                 <p> {order.message ? order.message : 'No gift message'} </p>
-
-                                          </a>
-                                          <h6 className="mb-3">${order.price}</h6>
+                                          </div>
                                    </MDBCardBody>
+                                   <MDBCardFooter className="p-4">
+                                          <div className="d-flex justify-content-between">
+                                                 <button onClick={cancelOrder} className='btn btn-danger'> Cancel Order </button>
+                                                 { order.orderTrack === 'Cancel' ? <button onClick={removeOrder} className='btn btn-outline-dark'> Remove </button> : <></> }
+                                          </div>
+                                   </MDBCardFooter>
                             </MDBCard>
                      </MDBCol>
+
               </>
        )
 }

@@ -9,6 +9,7 @@ const CategoriesCard = ({ src } : { src : string }) => (
                                    src = {src}
                                    alt='...'
                                    position='top'
+                                   className="align-self-center"
                             />
                             <MDBCardBody>
                                    <MDBCardText>

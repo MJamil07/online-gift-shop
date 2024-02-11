@@ -1,10 +1,13 @@
 import { Flex, Input, InputNumber , Modal, Radio , notification} from 'antd'
 import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBtn } from 'mdb-react-ui-kit'
 import { ShoppingCardType } from '../Shopcard'
+import { DeleteColumnOutlined, DeleteFilled } from '@ant-design/icons'
 import React from 'react'
 import axios from 'axios'
 import URL from '../../utils/url'
 import { PurchaseType } from './Product'
+import Gift from '../../../images/categorie/gift.png'
+
 
 export default function ShopcardProduct( {product} : {product : ShoppingCardType} ) {
 
@@ -13,7 +16,7 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
       const [giftMessage , setGiftMesage] = React.useState<string>('')
       const [paymentOption , setPaymentOption] = React.useState<string>('CASH_ON')
       const [api , contextHolder] = notification.useNotification()
-
+    
       const showModal = () => {
           setIsModalOpen(true);
       };
@@ -28,7 +31,6 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
                 paymentOption,
                 message : giftMessage
         }
-        console.log(newOrder);
         
         try {
             const response = await axios.post(`${URL}/purchase/create` , newOrder)
@@ -60,14 +62,29 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
             }
       }
 
+      const deleteShoppingCardProduct = async () => {
+        try {
+               const userId = localStorage.getItem('userId')
+               if (!userId)
+                   return
+               const response = await axios.delete(`${URL}/card/remove/${product._id}` , {headers: { 'Authorization': userId}})
+               
+           }
+           catch (error) {
+             console.error(error)
+           }
+      };
+
       return (
         
           <MDBCol md="4" className="mb-4 mb-lg-0">
               {contextHolder}
               <MDBCard className="text-black">
                 <MDBCardImage
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-product-cards/img1.webp"
+                  src={product.giftId.image ? `http://127.0.0.1:8002/${product.giftId.image}`.replace('src' , '') : Gift}
                   position="top"
+                  className="align-self-center"
+                  width="250"
                   alt=""
                 />
                 <MDBCardBody>
@@ -79,13 +96,15 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
                     <div className="d-flex flex-row">
                       <div className="flex-fill ms-1">
                         <div className='d-flex'>
-                          <h6 >Quantity : </h6>
+                          <h6 >Q : </h6>
                           <InputNumber onChange={updateQuantity} value={quantity} className='ms-3' min={quantity} max={product.giftId.quantity} defaultValue={1}  />
-                        </div>
-                      </div>
-                      <button onClick={showModal} className="flex-fill btn btn-outline-danger ms-2">
+                          <button onClick={showModal} className="flex-fill btn btn-outline-success ms-2">
                         Buy now
                       </button>
+                      <button onClick={deleteShoppingCardProduct} className='btn ms-2 btn-outline-danger p-2'> <DeleteFilled /> </button>
+                        </div>
+                      </div>
+                      
                     </div>
                     <Modal title="Order the Product" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                         <div>

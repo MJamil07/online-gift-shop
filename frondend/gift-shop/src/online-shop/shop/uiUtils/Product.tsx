@@ -28,11 +28,11 @@ export default function Product({product} : {product : ProductType} ) {
 
 
         const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-        const [quantity , setQuantity] = useState<number>(0)
+        const [quantity , setQuantity] = useState<number>(1)
         const [giftMessage , setGiftMessage] = useState<string>('')
         const [paymentOption , setPaymentOption] = useState<string>('CASH_ON')
         const [api , contextHolder] = notification.useNotification()
-
+        
         const showModal = () => {
           setIsModalOpen(true);
         };
@@ -71,7 +71,6 @@ export default function Product({product} : {product : ProductType} ) {
         };
 
         const selectPaymentOption = (e : any) => {
-          console.log(e.target.value);
           setPaymentOption(e.target.value)
         }
 
@@ -93,7 +92,7 @@ export default function Product({product} : {product : ProductType} ) {
                 {contextHolder}
                 <MDBRow className="justify-content-center mb-0">
                   <MDBCol md="12" xl="10">
-                    <MDBCard className="shadow-0 border rounded-3 mt-5 mb-3">
+                    <MDBCard className="shadow-0 border  rounded-3 mt-5 mb-3">
                       <MDBCardBody>
                         <MDBRow>
                           <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
@@ -103,9 +102,9 @@ export default function Product({product} : {product : ProductType} ) {
                               className="bg-image rounded hover-zoom hover-overlay"
                             >
                               <MDBCardImage
-                                src={Gift}
+                                src={product.image ? `http://127.0.0.1:8002/${product.image}`.replace('src' , '') : Gift}
                                 fluid
-                                className="w-70"
+                                className="align-self-center"
                               />
                               <a href="#!">
                                 <div
@@ -144,7 +143,7 @@ export default function Product({product} : {product : ProductType} ) {
                             <div className="d-flex flex-row align-items-center mb-1">
                               <h4 className="mb-1 me-1"> {product.price} </h4>
                               <span className="text-danger">
-                                <s> { product.price - 100} </s>
+                                <s> { product.price } </s>
                               </span>
                             </div>
                             <h6 className="text-success">Free shipping</h6>
