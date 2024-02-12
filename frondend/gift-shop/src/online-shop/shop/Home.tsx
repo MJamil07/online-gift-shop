@@ -72,7 +72,7 @@ const Home = () => {
                      <Navbar />
                      <div className="content-container">
                             <InputBox searchProduct={searchProductAndCategorie} />
-                            <h2 style={{ textAlign: 'center' }} className="category-heading mt-5">Occasion</h2>
+                            <h2 style={{ textAlign: 'center' }} className="category-heading mt-5">Categorie</h2>
                             <div className="category-container">
                                    <MDBRow style={{ marginLeft: '13%' }} className='row-cols-6 g-2'>
                                           {categories.map((category, index) => (
