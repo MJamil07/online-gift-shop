@@ -31,6 +31,4 @@ app.use('*' , (request : Request , response : Response) => {
        response.status(404).json({'message' : `url = ${ request.hostname + request.baseUrl + request.url} , method = ${request.method} , Not Found`})
 })
 
-app.listen(8002 , ()=> {
-       console.log('Server is running on 8989');
-})
+export default app

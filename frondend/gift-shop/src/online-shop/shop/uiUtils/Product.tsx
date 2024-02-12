@@ -143,7 +143,7 @@ export default function Product({product} : {product : ProductType} ) {
                             <div className="d-flex flex-row align-items-center mb-1">
                               <h4 className="mb-1 me-1"> {product.price} </h4>
                               <span className="text-danger">
-                                <s> { product.price } </s>
+                                <s> { product.price  - (product.price * 0.10) } </s>
                               </span>
                             </div>
                             <h6 className="text-success">Free shipping</h6>
