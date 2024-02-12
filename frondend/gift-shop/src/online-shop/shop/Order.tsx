@@ -29,6 +29,7 @@ export type PurchaseType = {
        orderTrack: string;
        message: string;
        purchaseDate: Date;
+       occasion : string | null
        __v: number;
 }
      

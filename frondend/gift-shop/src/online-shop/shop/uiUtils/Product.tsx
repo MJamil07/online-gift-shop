@@ -21,7 +21,8 @@ export  type PurchaseType = {
   quantity : number ,
   price : number ,
   paymentOption : string,
-  message : string | null
+  message : string | null,
+  occasion : string | null
 }
 
 export default function Product({product} : {product : ProductType} ) {
@@ -31,6 +32,7 @@ export default function Product({product} : {product : ProductType} ) {
         const [quantity , setQuantity] = useState<number>(1)
         const [giftMessage , setGiftMessage] = useState<string>('')
         const [paymentOption , setPaymentOption] = useState<string>('CASH_ON')
+        const [occasion , setOccasion] = useState<string>('Birthday')
         const [api , contextHolder] = notification.useNotification()
        
         
@@ -46,7 +48,8 @@ export default function Product({product} : {product : ProductType} ) {
                   quantity,
                   price : quantity * product.price,
                   paymentOption,
-                  message : giftMessage
+                  message : giftMessage,
+                  occasion
           }
           try {
               const response = await axios.post(`${URL}/purchase/create` , newOrder)
@@ -73,6 +76,10 @@ export default function Product({product} : {product : ProductType} ) {
 
         const selectPaymentOption = (e : any) => {
           setPaymentOption(e.target.value)
+        }
+
+        const selectOccasion= (e : any) => {
+          setOccasion(e.target.value)
         }
 
         const addShopcard = async () => {
@@ -178,6 +185,19 @@ export default function Product({product} : {product : ProductType} ) {
                       <Radio.Button value="CASH_ON">Cash On</Radio.Button>
                       <Radio.Button value="CREDIT">Credit</Radio.Button>
                       <Radio.Button value="DEBIT">Debit</Radio.Button>
+                    </Radio.Group>
+                  </Flex>
+                  <h6 className='mt-3'> Choose your Occasion  </h6>
+                  <Flex onChange={selectOccasion}  className='mt-3' vertical gap="middle">
+                    <Radio.Group defaultValue="Birthday" buttonStyle="solid">
+                      <Radio.Button value="Birthday">Birthday</Radio.Button>
+                      <Radio.Button value="Wedding">Wedding</Radio.Button>
+                      <Radio.Button value="Graduation">Graduation</Radio.Button>
+                      <Radio.Button value="Anniversary">Anniversary</Radio.Button>
+                      <Radio.Button value="Valentine\'s Day">Valentine's Day</Radio.Button>
+                      <Radio.Button value="Mother\'s Day">Mother's Day</Radio.Button>
+                      <Radio.Button value="Father\'s Day">Father's Day</Radio.Button>
+                      <Radio.Button value="Christmas">Christmas</Radio.Button>
                     </Radio.Group>
                   </Flex>
                 </Modal>

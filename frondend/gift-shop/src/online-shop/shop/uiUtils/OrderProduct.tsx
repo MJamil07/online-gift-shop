@@ -55,11 +55,14 @@ export default function OrderProduct({ order , refresh , setReferesh }: { order:
                                                                <span className="small text-muted"> via ( {order.giftId.categories} ) </span> {" "}
                                                         </MDBTypography>
                                                         <p className="text-muted">
-                                                               Tracking Status on:{" "}
+                                                               Tracking Status on:
                                                                <span className="text-success">{order.orderTrack} </span>
                                                                <br />
-                                                               Gift Message on:{" "}
+                                                               Gift Message on:
                                                                <span className="text-success">{order.message}</span>
+                                                               <br />
+                                                                Occasion:
+                                                               <span className="text-success">{order.occasion}</span>
                                                         </p>
                                                  </div>
                                                  <div>
