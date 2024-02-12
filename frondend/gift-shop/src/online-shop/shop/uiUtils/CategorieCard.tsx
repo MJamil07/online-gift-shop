@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCol } from 'mdb-react-ui-kit';
 
 
@@ -19,8 +19,6 @@ const CategoriesCard = ({ src } : { src : string }) => (
               </MDBCol>
 );
 
-CategoriesCard.propTypes = {
-       src: PropTypes.string.isRequired,
-};
+
 
 export default CategoriesCard;

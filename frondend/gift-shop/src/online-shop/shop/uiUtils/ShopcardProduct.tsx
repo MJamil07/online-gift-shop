@@ -90,14 +90,14 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
                 <MDBCardBody>
                     <div className="text-center mt-1">
                       <MDBCardTitle className="h4"> {product.giftId.name} </MDBCardTitle>
-                      <h6 className="text-primary mb-1 pb-3">price at ${product.totalPrice}</h6>
+                      <h6 className="text-primary mb-1 pb-3">price at ${product.totalPrice * quantity}</h6>
                     </div>
                   
                     <div className="d-flex flex-row">
                       <div className="flex-fill ms-1">
                         <div className='d-flex'>
                           <h6 >Q : </h6>
-                          <InputNumber onChange={updateQuantity} value={quantity} className='ms-3' min={quantity} max={product.giftId.quantity} defaultValue={1}  />
+                          <InputNumber onChange={updateQuantity} value={quantity} className='ms-3' min={1} max={product.giftId.quantity} defaultValue={1}  />
                           <button onClick={showModal} className="flex-fill btn btn-outline-success ms-2">
                         Buy now
                       </button>
