@@ -67,8 +67,6 @@ const Home = () => {
 
        }
 
-
-
        return (
               <div className="container">
                      <Navbar />

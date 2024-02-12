@@ -15,7 +15,7 @@ const InputBox =  ( {searchProduct} : {searchProduct : (query: QueryType) => voi
                      <input 
                             type="text" 
                             onChange={(e) => setSearch(e.target.value)} 
-                            placeholder="search by product name" 
+                            placeholder="Search by Product name.." 
                             className="input-box" 
                             onKeyPress={handleEnter}
                      />
