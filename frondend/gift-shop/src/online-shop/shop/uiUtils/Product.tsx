@@ -32,6 +32,7 @@ export default function Product({product} : {product : ProductType} ) {
         const [giftMessage , setGiftMessage] = useState<string>('')
         const [paymentOption , setPaymentOption] = useState<string>('CASH_ON')
         const [api , contextHolder] = notification.useNotification()
+       
         
         const showModal = () => {
           setIsModalOpen(true);
@@ -102,7 +103,7 @@ export default function Product({product} : {product : ProductType} ) {
                               className="bg-image rounded hover-zoom hover-overlay"
                             >
                               <MDBCardImage
-                                src={product.image ? `http://127.0.0.1:8002/${product.image}`.replace('src' , '') : Gift}
+                                src={product.image ? `https://online-gift-shop-api.vercel.app/${product.image}`.replace(/\\/g, '/') : Gift}
                                 fluid
                                 className="align-self-center"
                               />

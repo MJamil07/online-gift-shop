@@ -81,7 +81,7 @@ export default function ShopcardProduct( {product} : {product : ShoppingCardType
               {contextHolder}
               <MDBCard className="text-black">
                 <MDBCardImage
-                  src={product.giftId.image ? `http://127.0.0.1:8002/${product.giftId.image}`.replace('src' , '') : Gift}
+                  src={product.giftId.image ? `https://online-gift-shop-api.vercel.app/${product.giftId.image}`.replace(/\\/g, '/') : Gift}
                   position="top"
                   className="align-self-center"
                   width="250"

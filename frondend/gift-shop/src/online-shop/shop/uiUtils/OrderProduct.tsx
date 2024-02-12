@@ -66,7 +66,7 @@ export default function OrderProduct({ order , refresh , setReferesh }: { order:
                                                         <MDBCardImage
                                                                fluid
                                                                className="align-self-center"
-                                                               src={order.giftId.image ? `http://127.0.0.1:8002/${order.giftId.image}`.replace('src' , '') : Gift}
+                                                               src={order.giftId.image ? `https://online-gift-shop-api.vercel.app/${order.giftId.image}`.replace(/\\/g, '/') : Gift}
                                                                width="250"
                                                         />
                                                  </div>

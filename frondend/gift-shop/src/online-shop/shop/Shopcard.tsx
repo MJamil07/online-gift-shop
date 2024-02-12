@@ -5,6 +5,7 @@ import axios from 'axios';
 import URL from '../utils/url';
 import ShopcardProduct from './uiUtils/ShopcardProduct';
 import isLogin from '../utils/func';
+import Loading from './uiUtils/Loding';
 
 export type GiftType = {
        _id: string;
@@ -56,9 +57,9 @@ export default function Shopcard() {
                      <MDBContainer fluid className="my-3">
                             <MDBRow>
                                    {
-                                          favouriteProducts && favouriteProducts.map((favouriteProduct) => (
+                                          favouriteProducts ? favouriteProducts.map((favouriteProduct) => (
                                                  <ShopcardProduct product = {favouriteProduct} key={favouriteProduct._id} />
-                                          ))
+                                          )) : <Loading />
                                    }
                             </MDBRow>
                      </MDBContainer>

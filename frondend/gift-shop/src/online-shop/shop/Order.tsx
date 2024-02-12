@@ -5,6 +5,7 @@ import URL from '../utils/url'
 import { MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import OrderProduct from './uiUtils/OrderProduct'
 import isLogin from '../utils/func'
+import Loading from './uiUtils/Loding'
 
 export type GiftType = {
        _id: string;
@@ -67,9 +68,9 @@ export default function Order() {
                             </h4>
                             <MDBRow>
                                    {
-                                          orders && orders.map((order)=> (
+                                          orders ? orders.map((order)=> (
                                                  <OrderProduct setReferesh = {setRefresh} refresh = {refresh} key={order._id} order={order} />
-                                          ))
+                                          )) : <Loading />
                                    }
                             </MDBRow>
                      </MDBContainer>
