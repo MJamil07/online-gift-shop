@@ -6,6 +6,8 @@ import URL from '../utils/url';
 import ShopcardProduct from './uiUtils/ShopcardProduct';
 import isLogin from '../utils/func';
 import Loading from './uiUtils/Loding';
+import NoData from './uiUtils/NoData';
+import ShoppingCardEmpty from '../../images/categorie/shopping.png'
 
 export type GiftType = {
        _id: string;
@@ -19,7 +21,7 @@ export type GiftType = {
 }
 
 export type ShoppingCardType = {
-       _id : string;
+       _id: string;
        giftId: GiftType;
        userId: String;
        quantity: number;
@@ -31,7 +33,11 @@ export type ShoppingCardType = {
 export default function Shopcard() {
 
        isLogin()
-       const [favouriteProducts , setFavouriteProducts] = React.useState<ShoppingCardType[]>()
+       const [favouriteProducts, setFavouriteProducts] = React.useState<ShoppingCardType[] | null>(null)
+       const [isShopEmpty, setIsShopEmpty] = React.useState<boolean>(false)
+       const [refresh, setRefresh] = React.useState<boolean>(false)
+
+
        React.useEffect(() => {
               async function fetchData() {
                      try {
@@ -39,27 +45,36 @@ export default function Shopcard() {
 
                             if (!userId)
                                    return
-                            
+
                             const response = await axios.get(`${URL}/card/read/${userId}`)
-                                          .then((data) => {setFavouriteProducts(data.data)} )
-                     
+                                   .then((data) => { setFavouriteProducts(data.data) })
+                            setIsShopEmpty(false)
+
                      } catch (error) {
                             console.error('Error fetching data:', error);
+                            setFavouriteProducts([])
+                            setIsShopEmpty(true)
                      }
               }
-              
+
               fetchData();
-       })
+       }, [refresh])
+
        return (
               <div className='shopcard-container container'>
                      <Navbar />
-                     <h3 className='text-center mt-2'> Shopping Card </h3>
+                     <h3 className='text-center mt-5'> Shopping Card </h3>
                      <MDBContainer fluid className="my-3">
                             <MDBRow>
                                    {
-                                          favouriteProducts ? favouriteProducts.map((favouriteProduct) => (
-                                                 <ShopcardProduct product = {favouriteProduct} key={favouriteProduct._id} />
-                                          )) : <Loading />
+                                          favouriteProducts == null ? <Loading /> : favouriteProducts.length != 0 ? favouriteProducts.map((favouriteProduct) => (
+                                                 <ShopcardProduct
+                                                        product={favouriteProduct}
+                                                        key={favouriteProduct._id}
+                                                        refresh={refresh}
+                                                        setRefresh={setRefresh}
+                                                 />
+                                          )) : <NoData />
                                    }
                             </MDBRow>
                      </MDBContainer>

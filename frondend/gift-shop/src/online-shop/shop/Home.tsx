@@ -32,7 +32,7 @@ export type QueryType = { name?: string, categorie?: string }
 
 
 const Home = () => {
-       const categories = [{ Book }, { Flower }, { Cloth }, { Toy }, { Electronic }];
+       const categories = [{ Book }, { Flower }, { Cloth }, { Toy }, { Electronic } ];
        const [products, setProducts] = useState<ProductType[]>()
        
 
@@ -70,13 +70,17 @@ const Home = () => {
        return (
               <div className="container">
                      <Navbar />
-                     <div className="content-container">
+                     <div>
                             <InputBox searchProduct={searchProductAndCategorie} />
-                            <h2 style={{ textAlign: 'center' }} className="category-heading mt-5">Categorie</h2>
-                            <div className="category-container">
-                                   <MDBRow style={{ marginLeft: '13%' }} className='row-cols-6 g-2'>
+                            <h2 style={{ textAlign: 'center' }} className="category-heading m-4">Categorie</h2>
+                            <div >
+                                   <MDBRow  className='row-cols-6  justify-content-center align-item-center '>
                                           {categories.map((category, index) => (
-                                                 <button key={index} onClick={() => searchProductAndCategorie({ categorie: Object.keys(category)[0] })} className='btn'>
+                                                 <button  
+                                                        key={index} 
+                                                        onClick={() => searchProductAndCategorie({ categorie: Object.keys(category)[0] })} 
+                                                        className='btn p-3'
+                                                 >
                                                         <CategoriesCard src={Object.values(category)[0]} />
                                                  </button>
                                           ))}
@@ -84,12 +88,14 @@ const Home = () => {
                             </div>
                      </div>
                      <div className='product-container'>
-                            <      h2 style={{ textAlign: 'center' }} className="product-heading mt-5">Products</h2>
+                            <      h2 style={{ textAlign: 'center' }} className="product-heading mt-2">Products</h2>
 
-                            <MDBContainer fluid>
-                                   {products ? products.map((product, index) => (
-                                          <Product key={product._id} product={product} />
-                                   )) :  <Loading/> }
+                            <MDBContainer>
+                                   <MDBRow className='justify-content-center align-item-center '>
+                                          {products ? products.map((product) => (
+                                                 <Product key={product._id} product={product} />
+                                          )) :  <Loading/> }
+                                   </MDBRow>
                             </MDBContainer>
                      </div>
               </div>

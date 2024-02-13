@@ -6,6 +6,8 @@ import { MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import OrderProduct from './uiUtils/OrderProduct'
 import isLogin from '../utils/func'
 import Loading from './uiUtils/Loding'
+import NoData from './uiUtils/NoData'
+import OrderEmpty from '../../images/categorie/empty-cart.png'
 
 export type GiftType = {
        _id: string;
@@ -38,8 +40,9 @@ export default function Order() {
 
        isLogin()
 
-       const [orders , setOrders] = React.useState<PurchaseType[]>()
+       const [orders , setOrders] = React.useState<PurchaseType[] | null>(null)
        const [refresh , setRefresh] = React.useState<boolean>(false)
+       const [isOrderEmpty , setIsOrderEmpty] = React.useState<boolean>(false)
 
        React.useEffect(() => {
               async function fetchData() {
@@ -54,6 +57,8 @@ export default function Order() {
                      
                      } catch (error) {
                             console.error('Error fetching data:', error);
+                            setIsOrderEmpty(!isOrderEmpty)
+                            setOrders([])
                      }
               }
               
@@ -69,9 +74,9 @@ export default function Order() {
                             </h4>
                             <MDBRow>
                                    {
-                                          orders ? orders.map((order)=> (
+                                          orders == null ? <Loading /> : orders.length != 0 ? orders.map((order)=> (
                                                  <OrderProduct setReferesh = {setRefresh} refresh = {refresh} key={order._id} order={order} />
-                                          )) : <Loading />
+                                          )) :  <NoData  /> 
                                    }
                             </MDBRow>
                      </MDBContainer>

@@ -3,13 +3,13 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCol } from 'mdb-rea
 
 
 const CategoriesCard = ({ src } : { src : string }) => (
-              <MDBCol>
-                     <MDBCard className='h-100 w-100'>
+              <MDBCol >
+                     <MDBCard className='p-3'>
                             <MDBCardImage
                                    src = {src}
                                    alt='...'
                                    position='top'
-                                   className="align-self-center"
+                                   className="align-self-center fluid cover"
                             />
                             <MDBCardBody>
                                    <MDBCardText>

@@ -91,6 +91,8 @@ export default function Product({product} : {product : ProductType} ) {
               const response = await axios.post(`${URL}/card/create` , {userId , giftId : product._id , quantity : 1 , totalPrice : product.price}).then(() => {api.success({message : 'Shopcard Added'})})
             }
             catch(error) {
+              console.log(error);
+              
               api.error({message : 'Shopcard not added'})
             }   
         }
@@ -170,7 +172,7 @@ export default function Product({product} : {product : ProductType} ) {
                   </MDBCol>
                 </MDBRow>
 
-                <Modal title="Purchase" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Modal title="Purchase" open={isModalOpen} okText = {'Purchase'} onOk={handleOk} onCancel={handleCancel}>
                   <h5> {product.name} </h5>
                   <div className='d-flex'>
                     <h6 >Quantity : </h6>

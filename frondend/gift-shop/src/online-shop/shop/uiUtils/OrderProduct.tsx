@@ -1,7 +1,7 @@
 import { MDBCol, MDBCard, MDBCardImage, MDBCardBody,  MDBCardFooter, MDBTypography } from 'mdb-react-ui-kit'
 import { PurchaseType } from '../Order'
 import Gift from '../../../images/categorie/gift.png'
-import '../styles/orderProduct.css'
+import '../styles/orderProduct.css'    
 import axios from 'axios'
 import URL from '../../utils/url'
 import React from 'react'
@@ -38,7 +38,7 @@ export default function OrderProduct({ order , refresh , setReferesh }: { order:
 
        return (
               <>
-                     <MDBCol className='mt-3' md="10" lg="8" xl="6">
+                     <MDBCol  className='mt-3' md="10" lg="8" xl="6">
                             <MDBCard
                                    className="card-stepper"
                                    style={{ borderRadius: "16px" }}
@@ -71,6 +71,7 @@ export default function OrderProduct({ order , refresh , setReferesh }: { order:
                                                                className="align-self-center"
                                                                src={order.giftId.image ? `https://online-gift-shop-api.vercel.app/${order.giftId.image}`.replace(/\\/g, '/') : Gift}
                                                                width="250"
+                                                              
                                                         />
                                                  </div>
                                           </div>

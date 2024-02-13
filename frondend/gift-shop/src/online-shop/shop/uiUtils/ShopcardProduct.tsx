@@ -1,7 +1,7 @@
 import { Flex, Input, InputNumber, Modal, Radio, notification } from 'antd'
 import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBtn } from 'mdb-react-ui-kit'
 import { ShoppingCardType } from '../Shopcard'
-import {  DeleteFilled } from '@ant-design/icons'
+import { DeleteFilled } from '@ant-design/icons'
 import React from 'react'
 import axios from 'axios'
 import URL from '../../utils/url'
@@ -9,13 +9,13 @@ import { PurchaseType } from './Product'
 import Gift from '../../../images/categorie/gift.png'
 
 
-export default function ShopcardProduct({ product }: { product: ShoppingCardType }) {
+export default function ShopcardProduct({ product, refresh, setRefresh }: { product: ShoppingCardType, refresh: boolean, setRefresh: React.Dispatch<React.SetStateAction<boolean>> }) {
 
   const [quantity, setQuantity] = React.useState<number>(product.quantity)
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [giftMessage, setGiftMesage] = React.useState<string>('')
   const [paymentOption, setPaymentOption] = React.useState<string>('CASH_ON')
-  const [occasion , setOccasion] = React.useState<string>('Birthday')
+  const [occasion, setOccasion] = React.useState<string>('Birthday')
 
   const [api, contextHolder] = notification.useNotification()
 
@@ -52,7 +52,7 @@ export default function ShopcardProduct({ product }: { product: ShoppingCardType
     setIsModalOpen(false);
   };
 
-  const selectOccasion= (e : any) => {
+  const selectOccasion = (e: any) => {
     setOccasion(e.target.value)
   }
 
@@ -75,7 +75,7 @@ export default function ShopcardProduct({ product }: { product: ShoppingCardType
       if (!userId)
         return
       const response = await axios.delete(`${URL}/card/remove/${product._id}`, { headers: { 'Authorization': userId } })
-
+      setRefresh(!refresh)
     }
     catch (error) {
       console.error(error)
@@ -84,14 +84,15 @@ export default function ShopcardProduct({ product }: { product: ShoppingCardType
 
   return (
 
-    <MDBCol md="4" className="mb-4 mb-lg-0">
+    <MDBCol md="4" className="mb-4 mt-2 mb-lg-0">
       {contextHolder}
       <MDBCard className="text-black">
         <MDBCardImage
           src={product.giftId.image ? `https://online-gift-shop-api.vercel.app/${product.giftId.image}`.replace(/\\/g, '/') : Gift}
-          position="top"
           className="align-self-center"
+          position='top'
           width="250"
+          fluid
           alt=""
         />
         <MDBCardBody>
@@ -100,7 +101,7 @@ export default function ShopcardProduct({ product }: { product: ShoppingCardType
             <h6 className="text-primary mb-1 pb-3">price at ${product.totalPrice * quantity}</h6>
           </div>
 
-          <div className="d-flex flex-row">
+          <div className="d-flex  flex-row">
             <div className="flex-fill ms-1">
               <div className='d-flex'>
                 <h6 >Q : </h6>
@@ -113,7 +114,7 @@ export default function ShopcardProduct({ product }: { product: ShoppingCardType
             </div>
 
           </div>
-          <Modal title="Order the Product" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <Modal title="Order the Product" okText='Purchase' open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <h5> {product.giftId.name} </h5>
             <div>
               <Input onChange={(e) => setGiftMesage(e.target.value)} className='mt-3' placeholder="type a message for gift" />
