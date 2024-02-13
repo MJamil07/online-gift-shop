@@ -1,5 +1,5 @@
 import { Flex, Input, InputNumber, Modal, Radio, notification } from 'antd'
-import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBtn } from 'mdb-react-ui-kit'
+import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBIcon, MDBBtn, MDBRow } from 'mdb-react-ui-kit'
 import { ShoppingCardType } from '../Shopcard'
 import { DeleteFilled } from '@ant-design/icons'
 import React from 'react'
@@ -101,7 +101,7 @@ export default function ShopcardProduct({ product, refresh, setRefresh }: { prod
             <h6 className="text-primary mb-1 pb-3">price at ${product.totalPrice * quantity}</h6>
           </div>
 
-          <div className="d-flex  flex-row">
+          <MDBRow className="d-flex flex-row">
             <div className="flex-fill ms-1">
               <div className='d-flex'>
                 <h6 >Q : </h6>
@@ -113,7 +113,7 @@ export default function ShopcardProduct({ product, refresh, setRefresh }: { prod
               </div>
             </div>
 
-          </div>
+          </MDBRow>
           <Modal title="Order the Product" okText='Purchase' open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <h5> {product.giftId.name} </h5>
             <div>

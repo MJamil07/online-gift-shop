@@ -11,6 +11,7 @@ export  interface IPurchase {
        orderTrack : string
        message : string | null
        occasion : string 
+       created_at : Date
 }
 const PurchaseSchema = new Schema<IPurchase>({
        userId: { type: String, required: true },
@@ -39,6 +40,10 @@ const PurchaseSchema = new Schema<IPurchase>({
                      'Christmas',
                      'New Year',
               ],
+       },
+       created_at : {
+              type : Date,
+              default : Date.now
        }
 })
 

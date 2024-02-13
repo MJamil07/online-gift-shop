@@ -1,20 +1,20 @@
 
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCol } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardImage, MDBCardText, MDBCol } from 'mdb-react-ui-kit';
 
 
-const CategoriesCard = ({ src } : { src : string }) => (
-              <MDBCol >
-                     <MDBCard className='p-3'>
+const CategoriesCard = ({ src , name } : { src : string , name : string }) => (
+              <MDBCol>
+                     <MDBCard>
                             <MDBCardImage
                                    src = {src}
                                    alt='...'
                                    position='top'
                                    className="align-self-center fluid cover"
                             />
-                            <MDBCardBody>
-                                   <MDBCardText>
+                            <MDBCardText className='text-truncate'>
+                                          {name}
                                    </MDBCardText>
-                            </MDBCardBody>
+              
                      </MDBCard>
               </MDBCol>
 );

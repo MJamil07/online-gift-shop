@@ -73,15 +73,18 @@ const Home = () => {
                      <div>
                             <InputBox searchProduct={searchProductAndCategorie} />
                             <h2 style={{ textAlign: 'center' }} className="category-heading m-4">Categorie</h2>
-                            <div >
-                                   <MDBRow  className='row-cols-6  justify-content-center align-item-center '>
+                            <div>
+                                   <MDBRow className='row-cols-lg-6 p-4 row-cols-md-6 row-cols-3 g-0 justify-content-center align-item-center '>
                                           {categories.map((category, index) => (
                                                  <button  
                                                         key={index} 
                                                         onClick={() => searchProductAndCategorie({ categorie: Object.keys(category)[0] })} 
-                                                        className='btn p-3'
+                                                        className='btn '
                                                  >
-                                                        <CategoriesCard src={Object.values(category)[0]} />
+                                                        <CategoriesCard 
+                                                               name = {Object.keys(category)[0]} 
+                                                               src= {Object.values(category)[0]} 
+                                                        />
                                                  </button>
                                           ))}
                                    </MDBRow>

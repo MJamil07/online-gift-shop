@@ -5,6 +5,7 @@ export interface IShoppingCard extends Document {
        userId: String;
        quantity: number;
        totalPrice: number;
+       created_at : Date
 }
 
 const ShoppingCardSchema = new Schema<IShoppingCard>({
@@ -26,6 +27,10 @@ const ShoppingCardSchema = new Schema<IShoppingCard>({
        totalPrice: {
               type: Number,
               required: true
+       },
+       created_at : {
+              type : Date,
+              default : Date.now
        }
 });
 

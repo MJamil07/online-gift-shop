@@ -100,7 +100,9 @@ class ShopCrud<T> {
                             return response.status(400).json({ error: 'User ID is required' });
                      }
               
-                     const documents = await this.Model.find({ userId }).populate('giftId');
+                     const documents =  await this.Model.find({ userId })
+                                                        .sort({created_at : -1})
+                                                        .populate('giftId');
                      
                      if (documents.length === 0) {
                             return response.status(404).json({ message: 'No documents found for the specified user ID' });
