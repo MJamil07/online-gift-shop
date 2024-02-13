@@ -35,7 +35,7 @@ export default function Login(): JSX.Element {
        }
 
        return (
-              <MDBContainer style={{backgroundColor : 'white' , padding : '50px' , marginTop : '150px' }} >
+              <MDBContainer style={{backgroundColor : 'white' , padding : '50px' , marginTop : '80px' }} >
                      {contextHolder}
                      <MDBRow className="justify-content-center">
                             <MDBCol md="8" lg="6" className="text-center">
